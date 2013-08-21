@@ -1,6 +1,6 @@
 AsyncMarks
 ==========
-Download last version: [master/index.js](master/index.js "master/index.js")
+Download last version: [index.js](index.js "index.js")
 
 The library allows to execute arbitrary code after execute all marks.
 
