@@ -24,7 +24,7 @@
 			 */
 			if(options.timeout !== 0) {
 				this.outTimer = setTimeout(function() {
-					throw new Error("Index " + token_value + " of column "+ columns_names[i] +" already exists. Table: " + tableName);
+					throw new Error("Mark has expired");
 				}, options.timeout);
 			}
 			
@@ -50,7 +50,7 @@
 		 */
 		completeMark: function(markName) {
 			if(markName == undefined) {
-				 throw 'mark no name';
+				throw new Error("markName is undefined");
 			}
 			this._markStack[markName] = true;
 			this._compteleCall();
