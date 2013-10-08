@@ -12,6 +12,7 @@
 			 */
 			options = options || {};
 			options.timeout = options.timeout || 0;
+			options.debug = !!options.debug || false;
 			
 			/**
 			 * vars
@@ -63,6 +64,108 @@
 			return callback;
 		},
 		/**
+		 * sequence of operation
+		 */
+		series: function() {
+			this._fManager(arguments);
+			// execute
+			this._executeSeriesFunc();
+		},
+		
+		/**
+		 * _seriesMaster
+		 */		
+		_seriesMaster: function() {
+			var that = this;
+			return {
+				complete: function() {
+					that.function_list.splice(0, 1);
+					that._executeFunc();
+				}
+			}
+		},
+		
+		/**
+		 * _executeSeriesFunc
+		 */			
+		_executeSeriesFunc: function() {
+			if(this.function_list.length > 0) {
+				if(!(this.function_list[0] instanceof Function)) {
+					throw new Error("Argument is not function.");
+				}
+				
+				this.function_list[0].call(this._seriesMaster());
+			}
+			else {
+				if(this.callback != undefined) {
+					this.callback();
+				}
+			}
+		},		
+		/**
+		 * pack
+		 */
+		pack: function() {
+			this._fManager(arguments);
+			// execute
+			this._executePackFunc();
+		},
+		
+		/**
+		 *
+		 */
+		_executePackFunc: function() {
+			for(var i=0; i < this.function_list.length; i++) {
+				this.function_list[i].call(this._packMaster());
+			}
+		},
+		
+		/**
+		 * _packMaster
+		 */
+		_packMaster: function() {
+			var that = this;
+			return {
+				complete: function() {
+					that.function_list.splice(0, 1);
+					
+					if(that.function_list.length == 0 && that.callback != undefined) {
+						that.callback();
+					}
+				}
+			}
+		},
+		
+		/**
+		 * function manager
+		 */
+		_fManager: function(arguments) {
+
+			this.function_list = [];
+			
+			// null
+			if(arguments.length == 0) {
+				throw new Error("Arguments is null.");
+			}
+			// one function
+			else if(arguments.length == 1 && arguments[0] instanceof Function) {
+				this.function_list.push(arguments[0]);
+			}
+			// function list
+			else if(arguments.length == 1 && arguments[0] instanceof Array) {
+				for(var i=0; i < arguments[0].length; i++) {
+					this.function_list.push(arguments[0][i]);
+				}
+			}
+			// arguments list
+			else {	
+				for(var i=0; i < arguments.length; i++) {
+					this.function_list.push(arguments[i]);
+				}				
+			}		
+		},
+
+		/**
 		 *
 		 */
 		_compteleCall: function() {
@@ -74,7 +177,7 @@
 				}
 			}
 			if(this.outTimer != undefined) {
-				clearInterval(this.outTimer);
+				clearTimeout(this.outTimer);
 			}
 			
 			this.callback();

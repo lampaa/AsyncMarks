@@ -1,0 +1,54 @@
+<script src='index.js'></script>
+
+<script>
+var deferred = AsyncMarks();
+	
+var f0 = function() {
+	var that = this;
+		
+	setTimeout(function() {
+		console.log('1000 0');
+		that.complete();
+	}, 1000);
+}
+	
+	
+var f1 = function() {
+	var that = this;
+		
+	setTimeout(function() {
+		console.log('1000 1');
+		that.complete();
+	}, 1000);
+}
+	
+var f2 = function() {
+	var that = this;
+		
+		setTimeout(function() {
+		console.log('1000 2');
+		that.complete();
+	}, 1000);
+}
+	
+var f3 = function() {
+	var that = this;
+		
+	setTimeout(function() {
+		console.log('300 3');
+		that.complete();
+	}, 1000);
+}
+
+/**
+ * deff.pack(mixed);
+ */
+deff.series(f2, f1, f3, f0);
+
+/**
+ *
+ */	
+deff.complete(function() {
+	console.log('complete');
+});
+</script>
