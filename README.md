@@ -128,6 +128,10 @@ deferredTemplate.complete(function() {
 	globalMarkTemplate.complete();
 });
 
+/**
+ * execute global deffered complete function after load templates and query
+ */
+globalDeferred.pack(globalMarkQuery, globalMarkTemplate);
 
 globalDeferred.complete(function() {
 	var view = new NodeSmarty.assign({
@@ -137,7 +141,6 @@ globalDeferred.complete(function() {
     
     view.fetch();
 });
-
 ```
 
 
