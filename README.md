@@ -48,3 +48,27 @@ deferred.complete(function() {
 	console.log('all marks complete');
 });
 ```
+
+See an example of compiling a template:
+```js
+var deferred = AsyncMarks();
+var mysql = new Mysql(...);
+var members = [];
+var articles = [];
+
+var queryMembers = function() {
+	var that = this;
+    
+	mysql.query("SELECT * FROM members", function(err, data) {
+    	members = data;
+    });
+}
+
+
+```
+
+
+
+
+
+
