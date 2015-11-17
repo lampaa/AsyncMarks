@@ -61,6 +61,11 @@
 		 */
 		complete: function(callback) {
 			this.callback = callback;
+			
+			if(this.function_list.length == 0) {
+				this.callback();
+			}
+			
 			return callback;
 		},
 		/**
@@ -80,7 +85,7 @@
 			return {
 				complete: function() {
 					that.function_list.splice(0, 1);
-					that._executeFunc();
+					that._executeSeriesFunc();
 				}
 			}
 		},
@@ -108,13 +113,6 @@
 		pack: function() {
 			this._fManager(arguments);
 			// execute
-			this._executePackFunc();
-		},
-		
-		/**
-		 *
-		 */
-		_executePackFunc: function() {
 			for(var i=0; i < this.function_list.length; i++) {
 				this.function_list[i].call(this._packMaster());
 			}
@@ -128,7 +126,7 @@
 			return {
 				complete: function() {
 					that.function_list.splice(0, 1);
-					
+
 					if(that.function_list.length == 0 && that.callback != undefined) {
 						that.callback();
 					}
