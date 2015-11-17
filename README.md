@@ -2,6 +2,10 @@ AsyncMarks
 ==========
 Download last version: [index.js](index.js "index.js")
 
+### Asynchronous markers will allow you to avoid the callback hell and tidy the code.
+
+View this code:
+
 The library allows to execute arbitrary code after execute all marks.
 
 Example: 
