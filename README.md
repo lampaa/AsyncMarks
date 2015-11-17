@@ -16,14 +16,14 @@ setTimeout(function() {
 }, 300);
 
 // second marker, completion through the context of the function.
-deferred.addMark(function() {
+var secondMark = function() {
     var that = this;
     
     setTimeout(function() {
 		console.log('second timeout complete, 500ms');
 		that.complete();
 	}, 500);
-});
+};
 ```
 
 The library allows to execute arbitrary code after execute all marks.
