@@ -33,33 +33,17 @@ deferred.pack([firstMark, secondMark, ..., nMark]);
 // complete pack with arguments of markers
 deferred.pack(firstMark, secondMark, ..., nMark);
 ```
-
-The library allows to execute arbitrary code after execute all marks.
-
-Example: 
-
+To perform all the functions one by one, call the method ```series(mixed)```:
 ```js
-var deferred = AsyncMarks();
-//
-var firstMark = deferred.addMark();
-setTimeout(function() {
-	console.log('first timeout complete, 300ms');
-	firstMark.complete();
-}, 300);
+// complete series with array of markers
+deferred.series([firstMark, secondMark, ..., nMark]);
 
-//
-var secondMark = deferred.addMark();
-setTimeout(function() {
-	console.log('second timeout complete, 1300ms');
-	secondMark.complete();
-}, 1300);
+// complete series with arguments of markers
+deferred.series(firstMark, secondMark, ..., nMark);
+```
 
-deferred.addMark('third');
-setTimeout(function() {
-	console.log('third timeout complete, 700ms');
-	deferred.completeMark('third');
-}, 700);
-
+To call a function that is performed after the completion of all functions, perform method ```complete()```:
+```js
 deferred.complete(function() {
 	console.log('all marks complete');
 });
