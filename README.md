@@ -25,6 +25,14 @@ var secondMark = function() {
 	}, 500);
 };
 ```
+To perform all the functions at once, call the method ```pack(mixed)```:
+```js
+// complete pack with array of markers
+deferred.pack([firstMark, secondMark, ..., nMark]);
+
+// complete pack with arguments of markers
+deferred.pack(firstMark, secondMark, ..., nMark);
+```
 
 The library allows to execute arbitrary code after execute all marks.
 
