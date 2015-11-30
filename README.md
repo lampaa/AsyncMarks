@@ -99,26 +99,29 @@ var templateData = [];
 
 var templateHeader = function() {
 	var that = this;
-    
+	
 	fs.load('templateHeader', function(data) {
-    	templateData.push(data);
-    });
+    		templateData.push(data);
+    		that.complete();
+	});
 }
 
 var templateContent = function() {
 	var that = this;
     
 	fs.load('templateContent', function(data) {
-    	templateData.push(data);
-    });
+    		templateData.push(data);
+    		that.complete();
+	});
 }
 
 var templateFooter = function() {
 	var that = this;
     
 	fs.load('templateFooter', function(data) {
-    	templateData.push(data);
-    });
+    		templateData.push(data);
+    		that.complete();
+	});
 }
 
 deferredTemplate.series(templateHeader, templateContent, templateFooter);
